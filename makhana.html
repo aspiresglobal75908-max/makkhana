@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Codebeautify.org Text to HTML Converter</title>
+	</head>
+	<body>
+		<p>
+			<!DOCTYPE html>
+			<html lang="hi">
+				<head>
+					<meta charset="UTF-8">
+						<meta name="viewport" content="width=device-width, initial-scale=1.0">
+							<title>Makkhanaaa - Bihar ka Garv</title>
+							<script src="https://cdn.tailwindcss.com"></script>
+						</head>
+						<body class="bg-[#FFF8E1]">
+							<header class="bg-[#7B3F00] text-white p-4 flex justify-between items-center">
+								<h1 class="font-black text-xl">MAKKHANAAA</h1>
+								<button onclick="document.getElementById(\'cartBox\').classList.remove(\'hidden\')" class="bg-white text-[#7B3F00] px-4 py-1 rounded-full font-bold">Cart (
+									<span id="count">0</span>)
+								</button>
+							</header>
+							<!-- BANNER FIXED -->
+							<section class="text-center">
+								<img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1200" class="w-full h-64 object-cover">
+									<h2 class="text-4xl font-black text-[#7B3F00] mt-4">Bihar ka Garv, Duniya ka Swad</h2>
+									<p class="text-gray-600">Mithila ke talab ka shuddh Phool Makhana</p>
+								</section>
+								<!-- PRODUCTS -->
+								<section id="products" class="grid md:grid-cols-3 gap-6 p-6 max-w-6xl mx-auto"></section>
+								<!-- CART -->
+								<div id="cartBox" class="hidden fixed inset-0 bg-black/60 flex items-center justify-center p-4">
+									<div class="bg-white p-6 rounded-xl w-full max-w-md text-center">
+										<h3 class="font-bold">Aapka Order</h3>
+										<div id="cartItems" class="text-sm my-2"></div>
+										<p class="font-bold">Total: Rs.
+											<span id="total">0</span> (GST Included)
+										</p>
+										<img id="qrImg" class="hidden w-48 h-48 mx-auto border mt-3">
+											<p class="text-xs mt-2">UPI: 
+												<b>9234675908@fam</b>
+											</p>
+											<button onclick="makeQR()" class="w-full bg-[#7B3F00] text-white py-2 rounded-full mt-3">QR Dikhao</button>
+											<button onclick="sendWA()" class="w-full bg-green-600 text-white py-2 rounded-full mt-2">WhatsApp Par Bhejo</button>
+											<button onclick="document.getElementById(\'cartBox\').classList.add(\'hidden\')" class="text-gray-500 mt-2">Band Karo</button>
+										</div>
+									</div>
+									<script> 
+const products=[ 
+{name:"Classic Salted 100g",price:149,img:"https://images.unsplash.com/photo-1599490659213-e2b9527bd087?w=500"}, 
+{name:"Classic Salted 250g",price:349,img:"https://images.unsplash.com/photo-1599490659213-e2b9527bd087?w=500"}, 
+{name:"Classic Salted 500g",price:649,img:"https://images.unsplash.com/photo-1599490659213-e2b9527bd087?w=500"} 
+]; 
+let cart=[]; 
+document.getElementById(\'products\').innerHTML=products.map((p,i)=>` 
+
+										<div class="bg-white rounded-xl shadow p-4 text-center">
+											<img src="${p.img}" class="h-40 w-full object-cover rounded">
+												<h4 class="font-bold mt-2">${p.name}</h4>
+												<p class="text-green-700 font-bold">Rs.${p.price}</p>
+												<button onclick="add(${i})" class="bg-yellow-400 w-full py-2 rounded-full font-bold mt-2">Add to Cart</button>
+											</div>`).join(\'\'); 
+function add(i){cart.push(products[i]);document.getElementById(\'count\').innerText=cart.length;alert(\'Add ho gaya\')} 
+function makeQR(){ 
+let t=cart.reduce((a,b)=>a+b.price,0); 
+if(!t) return alert(\'Pehle Add karo\'); 
+let upi=`upi://pay?pa=9234675908@fam&pn=Makkhanaaa&am=${t}&cu=INR`; 
+document.getElementById(\'qrImg\').src=`https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(upi)}`; 
+document.getElementById(\'qrImg\').classList.remove(\'hidden\'); 
+document.getElementById(\'total\').innerText=t; 
+document.getElementById(\'cartItems\').innerHTML=cart.map(c=>c.name).join(\'
+											<br>\'); 
+} 
+function sendWA(){ 
+let t=cart.reduce((a,b)=>a+b.price,0); 
+let msg=cart.map(c=>c.name).join(\', \')+" Total Rs."+t; 
+window.open("https://wa.me/919234675908?text="+encodeURIComponent(msg),"_blank"); 
+} 
+
+											</script>
+										</body>
+									</html>
+								</p>
+							</body>
+						</html>
